@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Coupon;
 use App\Models\City;
 use App\Models\Feeship;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 use DB;
@@ -33,10 +34,11 @@ class CartController extends Controller
         
     }
     public function show_cart(){
+        $slider = Slider::all();
         $city = City::all();
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();
         $brand = Brand::where('brand_status','=','1')->get();
-        return view('cart.show_cart',['cate'=>$cate,'brand'=>$brand,'city'=>$city]);
+        return view('cart.show_cart',['cate'=>$cate,'brand'=>$brand,'city'=>$city,'slider'=>$slider]);
     }
     public function delete_cart($rowId){
          Cart::update($rowId,0);
@@ -91,9 +93,10 @@ class CartController extends Controller
     }
     public function show_cart_ajax(Request $req){
         $city = City::all();
+        $slider = Slider::all();
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();
         $brand = Brand::where('brand_status','=','1')->get();
-        return view('cart.cart_ajax',['cate'=>$cate,'brand'=>$brand,'city'=>$city]);
+        return view('cart.cart_ajax',['cate'=>$cate,'brand'=>$brand,'city'=>$city,'slider'=>$slider]);
     }
     public function delete_cart_ajax($id){
         $cart = Session::get('cart');

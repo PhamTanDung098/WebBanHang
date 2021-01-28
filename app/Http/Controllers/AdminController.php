@@ -9,11 +9,10 @@ use App\Models\Social;
 use Socialite;
 use Illuminate\Support\Facades\Redirect;
 use Session;
-\session_start();
 class AdminController extends Controller
 {
     public function login_facebook(){
-
+       
         return Socialite::driver('facebook')->redirect();
     }
     public function callback_facebook(){
@@ -30,7 +29,6 @@ class AdminController extends Controller
         }
         else
         {
-           
             $dung = new Social;
             $dung->provider_user_id = $provider->id;
             $dung->provider = 'facebook';
@@ -65,22 +63,6 @@ class AdminController extends Controller
     public function index(){
         return view('admin.admin_login');
     }
-    
-    // public function login(Request $req){
-    //     $email = $req->email;
-    //     $password = md5($req->password);
-    //     $result = Admin::where('admin_email',$email)->where('admin_password',$password)->first();
-    //     dd($result->all());
-    //     if($result){
-    //         Session::put('user',$result);
-    //         return redirect()->route('dashboard');
-    //     }
-    //     else{
-    //         Session::put('message',"Mật khẩu và tài khoản bị sai. Vui lòng nhập lại");
-    //         return redirect()->route('login');
-    //     }
-
-    // }
     public function logout(){
         if(\session()->has('user')){
             session()->forget('user');

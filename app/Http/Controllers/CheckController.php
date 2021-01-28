@@ -16,6 +16,7 @@ use App\Models\Order;
 use App\Models\Order_Detail;
 use App\Models\Order_details;
 use App\Models\Shipping;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 use DB;
@@ -79,7 +80,8 @@ class CheckController extends Controller
     public function login_checkout(){
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();
         $brand = Brand::where('brand_status','=','1')->get();
-        return view('pages.checkout.login_checkout',['cate'=>$cate,'brand'=>$brand]);
+        $slider = Slider::all();
+        return view('pages.checkout.login_checkout',['cate'=>$cate,'brand'=>$brand,'slider'=>$slider]);
     }
     public function add_customer(Request $req){
         $data = new Customer;

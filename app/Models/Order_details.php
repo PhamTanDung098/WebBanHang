@@ -11,4 +11,8 @@ class Order_details extends Model
     public $table = 'tbl_order_details';
     protected $fillable = ['order_code','product_id','product_name','product_price','product_sale_quatity','order_code','product_feeship','product_coupon'];
     protected $primaryKey ='id';
+    public function products()
+    {
+        return $this->belongsTo('App\Models\Product', 'product_id', 'id');
+    }
 }

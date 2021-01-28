@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category_Product;
 use App\Models\Brand;
+use App\Models\Slider;
 use Session;
 use DB;
 
@@ -19,9 +20,8 @@ class ProductController extends Controller
     public function all_product(){
         
         $product = Product::all();
-     
-        
-        return view('products.all_product',['product'=>$product]);
+        $slider = Slider::all();
+        return view('products.all_product',['product'=>$product,'slider'=>$slider]);
     }
     public function save_product(Request $req){
         $products = new Product;
@@ -92,6 +92,7 @@ class ProductController extends Controller
         $meta_desc = "Chuyên bán điện thoại giá rẻ Chuyên bán điện thoại giá rẻ Chuyên bán điện thoại giá rẻ";     
         $meta_keywords = "Điện thoại phụ kiện giá rẻ";
         $meta_title = "Search E-Shop";
+        $slider = Slider::all();
         $meta_canonical = $req->url();
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();
         $brand = Brand::where('brand_status','=','1')->get();
@@ -111,7 +112,7 @@ class ProductController extends Controller
         // dd($relate_product);
         return view('products.chitiet',['product_detail'=>$product_detail,'cate'=>$cate,'brand'=>$brand,'relate_product'=>$relate_product
         ,'meta_desc'=>$meta_desc,
-        'meta_keywords'=>$meta_keywords,'meta_title'=>$meta_title,'meta_canonical'=>$meta_canonical]);
+        'meta_keywords'=>$meta_keywords,'meta_title'=>$meta_title,'meta_canonical'=>$meta_canonical,'slider'=>$slider]);
     }
     // findDanhmuc ajax
     public function findProductName(Request $req){

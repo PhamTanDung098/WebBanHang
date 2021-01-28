@@ -44,7 +44,6 @@ Route::get('/edit-categoryproduct/{id}',[CategoryProduct::class,'edit_categorypr
 Route::get('/delete-categoryproduct/{id}',[CategoryProduct::class,'delete_categoryproduct'])->name('categoryproduct.delete');
 Route::get('/all-categoryproduct',[CategoryProduct::class,'all_categoryproduct'])->name('categoryproduct.all');
 Route::get('/active-categoryproduct/{id}',[CategoryProduct::class,'active_categoryproduct'])->name('categoryproduct.active');
-
 //Brand
 Route::get('/add-brand',[BrandController::class,'addBrand'])->name('brand.add');
 Route::post('/save-brand',[BrandController::class,'saveBrand'])->name('brand.save');

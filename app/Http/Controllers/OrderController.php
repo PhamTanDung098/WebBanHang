@@ -123,6 +123,7 @@ class OrderController extends Controller
     }
     public function view_order($order_code){
         $order_details = Order_details::where('order_code',$order_code)->get();
+     
         $order = Order::where('order_code',$order_code)->first();
         $shipping_id = $order['shipping_id'];
         $customer_id = $order->customer_id;

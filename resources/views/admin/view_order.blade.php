@@ -124,7 +124,7 @@
                 @endphp
                 <td>{{$index++}}</td>
                 <td>{{$item->product_name}}</td>
-                <td>{{$item->product_sale_quatity}}</td>
+                <td>{{$item->products->product_quatity}}</td>
                 <td>{{number_format($item->product_price).'đ'}}</td>
                 <td>{{number_format($item->product_feeship).'đ'}}</td>
                 <td>

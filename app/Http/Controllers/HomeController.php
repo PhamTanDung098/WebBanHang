@@ -32,11 +32,12 @@ class HomeController extends Controller
         $meta_title = "Search E-Shop";
         $meta_canonical = $req->url();
         $keyword = $req->keywords;
+        $slider = Slider::all();
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();     
         $brand = Brand::where('brand_status','=','1')->get();
         $search = Product::where('product_name','like','%'.$keyword.'%')->get();
         // $product = Product::where('product_status','1')->get();
-        return view('products.search',['cate'=>$cate,'brand'=>$brand,'search'=>$search,'meta_desc'=>$meta_desc,
+        return view('products.search',['cate'=>$cate,'slider'=>$slider,'brand'=>$brand,'search'=>$search,'meta_desc'=>$meta_desc,
         'meta_keywords'=>$meta_keywords,'meta_title'=>$meta_title,'meta_canonical'=>$meta_canonical]);
     }
     // Cấu hình gửi mail
