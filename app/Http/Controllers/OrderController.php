@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Order_details;
 use App\Models\Shipping;
 use App\Models\Customer;
+use App\Models\Product;
 use PDF;
 
 class OrderController extends Controller
@@ -123,12 +124,37 @@ class OrderController extends Controller
     }
     public function view_order($order_code){
         $order_details = Order_details::where('order_code',$order_code)->get();
-     
-        $order = Order::where('order_code',$order_code)->first();
-        $shipping_id = $order['shipping_id'];
-        $customer_id = $order->customer_id;
+        $orders = Order::where('order_code',$order_code)->first();
+        
+        $shipping_id = $orders['shipping_id'];
+        $customer_id = $orders->customer_id;
         $customer = Customer::find($customer_id);
         $shipping = Shipping::find($shipping_id);
-        return view('admin.view_order',['order_details'=>$order_details,'customer'=>$customer,'shipping'=>$shipping]);
+
+        return view('admin.view_order',['order_details'=>$order_details,'customer'=>$customer,'shipping'=>$shipping,'orders'=>$orders]);
+    }
+    public function update_quantity(Request $req){
+
+        $order  = Order::find($req->order_id);
+        $order->order_status = $req ->order_status;
+        $order->save();
+        $data = $req->all();
+        // dd($product_order);
+        if($order->order_status == 2){
+            foreach($data['order_product_id']  as $key => $product_id){
+                foreach($data['quantity'] as $key2 => $qty){
+                    $product = Product::find($product_id);
+                    $product_quantity = $product -> product_quatity;
+                    $product_sold = $product ->product_sold;
+                    if($key == $key2){
+                        $product_remain = $product_quantity - $qty;
+                        $product ->product_quatity =$product_remain;
+                        $product->product_sold = $product_sold +$qty;
+                        $product->save();
+                    }
+                }
+            }
+        }
+
     }
 }

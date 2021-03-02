@@ -223,7 +223,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     CKEDITOR.replace('ckeditor1');
     CKEDITOR.replace("ckeditor");
 </script>
+<script type="text/javascript">
+    $('.order_details').change(function(){
+        var order_status = $(this).val();
+        // alert(order_status);
+        var order_id = $(this).children(":selected").attr("id");
+        var _token = $('input[name="_token"]').val();
+         quantity = [];
+        $('input[name="product_sale_quantity"]').each(function(){
+            quantity.push($(this).val());
+        });
+        order_product_id =[];
+        $('input[name="order_checkout_quantity"]').each(function(){
+            order_product_id.push($(this).val());
+        });
+        $.ajax({
+            url: '{{url('/update-quantity')}}',
+            method: 'POST',
+            data:{_token:_token,order_status:order_status,quantity:quantity
+                ,order_id:order_id,order_product_id:order_product_id},
+     
+            success:function(data){
+                alert("Cập nhật số lượng thành công");
+                // location.reload();
+            }
+        });
 
+    });
+
+</script>
+<script type = "text/javascript">
+    $('.update_quantity_order').click(function(){
+        var order_product_id = $(this).data('product_id');
+        var order_qty = 
+    });
+
+
+</script>
 
 {{-- <script type="text/javascript">
     $.validate({

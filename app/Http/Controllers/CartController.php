@@ -29,9 +29,7 @@ class CartController extends Controller
         $data['options']['image']= $product_info->product_image;
         $data['weight'] = '123';
         Cart::add($data);
-        return Redirect::to('/show-cart');
-
-        
+        return Redirect::to('/show-cart'); 
     }
     public function show_cart(){
         $slider = Slider::all();

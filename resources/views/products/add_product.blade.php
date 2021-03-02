@@ -23,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Số lượng</label>
-                            <input type="number"  name="product_quantity" class="form-control" id="exampleInputEmail1" placeholder="Tên danh mục">
+                            <input type="number"  name="product_quantity" class="form-control"  placeholder="Tên danh mục">
                         </div>
                         <div class="form-group">
                             <label for="">Thương hiệu sản phẩm</label>

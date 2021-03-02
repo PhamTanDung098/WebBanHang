@@ -21,7 +21,6 @@
               <th>Mô tả sản phẩm</th>
               <th>Chi tiết sản phẩm</th>
               <th>Màu</th>
-    
               <th>image</th>
               <th>Giá</th>
               <th>Status</th>
@@ -50,7 +49,6 @@
                 <td><span class="text-ellipsis">{{$item->product_desc}}</span></td>
                 <td><span class="text-ellipsis">{{$item->product_content}}</span></td>
                 <td><span class="text-ellipsis">{{$item->product_color}}</span></td>
-
                 @php
                     $image =$item->product_image;
                 @endphp

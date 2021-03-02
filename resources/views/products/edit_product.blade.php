@@ -48,17 +48,15 @@
                         <div class="form-group">
                           <label for="">Danh mục sản phẩm</label>
                           <select class="form-control danhmuc" name="category_id" id="danhmuc">
-                             
                           </select>
                         </div>
-                       
                         <div class="form-group">
                             <label for="">Mô tả sản phẩm</label>
                             <textarea type="password" name="product_desc" class="form-control" id="exampleInputPassword1" placeholder="Mô tả danh mục"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Chi tiết sản phẩm</label>
-                            <textarea type="number" rows="5" name="product_content" class="form-control"  placeholder="Mô tả danh mục"> </textarea>
+                            <textarea type="number" rows="5" name="product_quatity" class="form-control"  placeholder="Product Quantity"> </textarea>
                         </div>
                         <div class="form-group">
                             <label for="">Số lượng sản phẩm</label>

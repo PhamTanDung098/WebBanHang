@@ -97,6 +97,7 @@
               </th> --}}
               <th>STT</th>
               <th>Tên sản phẩm</th>
+              <th>Só lượng kho</th>
               <th>Số lượng </th>
               <th>Giá</th>
               <th>Phí ship</th>
@@ -125,6 +126,11 @@
                 <td>{{$index++}}</td>
                 <td>{{$item->product_name}}</td>
                 <td>{{$item->products->product_quatity}}</td>
+                <td>
+                  <input type="number" class="order_qty_{{$item->product_id}}" min="1" value="{{$item->product_sale_quatity}}" name="product_sale_quantity" height="5">
+                  <input type="hidden" name="order_checkout_quantity" value="{{$item->product_id}}" class="order_product_id">
+                  <button class="btn btn-default update_quantity_order" data-product_id="{{$item->product_id}}" name="update_quantity" >Cập nhật</button>
+                </td>
                 <td>{{number_format($item->product_price).'đ'}}</td>
                 <td>{{number_format($item->product_feeship).'đ'}}</td>
                 <td>
@@ -155,6 +161,42 @@
               $total_sum += $sum; 
            @endphp
             @endforeach 
+            <tr>
+              <td colspan="6">
+                  @if($orders->order_status==1)
+                    <form> 
+                      @csrf
+                      <select class="form-control order_details">
+                        <option value="" selected>---- Chọn hình thức đơn hàng ----</option>
+                        <option id="{{$orders->id}}" selected value="1">Chưa xử lí</option>
+                        <option id="{{$orders->id}}" value="2">Đã xử lí - Đã thanh toán</option>
+                        <option id="{{$orders->id}}" value="3">Hủy đơn hàng - tạm giữ</option>
+                      </select>
+                    </form>
+                  @elseif($orders->order_status==2)
+                    <form > 
+                      @csrf
+                      <select class="form-control order_details">
+                        <option value="">----Chọn hình thức đơn hàng----</option>
+                        <option id="{{$orders->id}}" value="1">Chưa xử lí</option>
+                        <option id="{{$orders->id}}" selected value="2">Đã xử lí - Đã thanh toán</option>
+                        <option id="{{$orders->id}}" value="3">Hủy đơn hàng - tạm giữ</option>
+                      </select>
+                  </form>
+                  @else
+                  <form > 
+                    @csrf
+                    <select class="form-control order_details">
+                      <option value="">----Chọn hình thức đơn hàng----</option>
+
+                      <option id="{{$orders->id}}" value="1">Chưa xử lí</option>
+                      <option id="{{$orders->id}}" value="2">Đã xử lí - Đã thanh toán</option>
+                      <option id="{{$orders->id}}" selected value="3">Hủy đơn hàng - tạm giữ</option>
+                    </select>
+                </form>
+                  @endif
+              </td>
+            </tr>
           </tbody>
         </table>
         <p class="text-right text-danger" style="padding-right:80px">Tổng tiền <span>{{number_format($total_sum).'đ'}}</span></p>

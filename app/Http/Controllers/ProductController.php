@@ -34,8 +34,6 @@ class ProductController extends Controller
         $products->product_content = $req->product_content;
         $products->product_size = $req->product_size;
         $products->product_color = $req->product_color;
-     
-        
         $products->product_quatity = $req->product_quantity;
         $get_image =$req ->file('product_image');
         if($get_image){
