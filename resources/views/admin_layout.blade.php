@@ -225,8 +225,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </script>
 <script type="text/javascript">
     $('.order_details').change(function(){
+
         var order_status = $(this).val();
-        // alert(order_status);
         var order_id = $(this).children(":selected").attr("id");
         var _token = $('input[name="_token"]').val();
          quantity = [];
@@ -237,17 +237,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $('input[name="order_checkout_quantity"]').each(function(){
             order_product_id.push($(this).val());
         });
-        $.ajax({
-            url: '{{url('/update-quantity')}}',
-            method: 'POST',
-            data:{_token:_token,order_status:order_status,quantity:quantity
-                ,order_id:order_id,order_product_id:order_product_id},
-     
-            success:function(data){
-                alert("Cập nhật số lượng thành công");
-                // location.reload();
+        temp = 0;
+        for(i =0;i<order_product_id.length;i++){
+            var order_qty = $('.order_qty_'+order_product_id[i]).val(); // Số lượng đặt
+            var order_qty_storage = $('.order_qty_storage_'+order_product_id[i]).val(); // Số lượng tồn kho
+           
+            if(parseInt(order_qty) > parseInt(order_qty_storage)){
+                temp = temp+1;
+                $('.color_qty_'+order_product_id[i]).css('background',' #ff3300');
             }
-        });
+        }
+        if(temp >0){
+            alert('Số lượng trong kho hiện không đủ');
+        }
+        else{
+            $.ajax({
+                url: '{{url('/update-quantity')}}',
+                method: 'POST',
+                data:{_token:_token,order_status:order_status,quantity:quantity
+                    ,order_id:order_id,order_product_id:order_product_id},
+        
+                success:function(data){
+                    alert("Thay đổi tình trạng đơn hàng thành công");
+                    location.reload();
+                }
+            });
+        }
+       
 
     });
 
@@ -255,7 +271,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type = "text/javascript">
     $('.update_quantity_order').click(function(){
         var order_product_id = $(this).data('product_id');
-        var order_qty = 
+        var order_qty = $('.order_qty_'+order_product_id).val();
+        var order_code = $('.order_code').val();
+        var _token  = $('input[name="_token"]').val();
+       
+        $.ajax({
+            url: '{{url('/update-qty')}}',
+            method: 'POST',
+            data:{_token:_token,order_product_id:order_product_id,order_qty:order_qty,order_code:order_code},
+            success:function(data){
+                alert("Đã caaoh nhật số lượng");
+            }
+        })
     });
 
 

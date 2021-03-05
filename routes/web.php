@@ -100,7 +100,8 @@ Route::get('/payment',[CheckController::class,'payment'])->name('payment');
 Route::get('/manager-order',[OrderController::class,'manager_order'])->name('admin.manager_order');
 Route::get('/view-order/{ordercode}',[OrderController::class,'view_order'])->name('admin.view_order');
 Route::post('/update-quantity',[OrderController::class,'update_quantity'])->name('order.update_quantity');
-
+// order ajax
+Route::post('/update-qty',[OrderController::class,'update_qty']);
 
 // ajax find product
 Route::get('/findDanhmuc',[ProductController::class, 'findDanhmuc'])->name('findDanhmuc');

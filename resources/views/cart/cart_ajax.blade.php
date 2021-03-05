@@ -155,7 +155,7 @@
                         </li>
                         
                        
-                        <li>Thành tiền <span>{{number_format($Sum).'đ'}}</span></li>
+                        {{-- <li>Thành tiền <span>{{number_format($Sum).'đ'}}</span></li> --}}
                         @if(session()->has('cart'))
                             <li>
                                 <form action="{{route('coupon')}}" method="POST">

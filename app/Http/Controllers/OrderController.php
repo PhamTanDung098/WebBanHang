@@ -128,13 +128,13 @@ class OrderController extends Controller
         
         $shipping_id = $orders['shipping_id'];
         $customer_id = $orders->customer_id;
+        $order_status = $orders->order_status;
         $customer = Customer::find($customer_id);
         $shipping = Shipping::find($shipping_id);
 
-        return view('admin.view_order',['order_details'=>$order_details,'customer'=>$customer,'shipping'=>$shipping,'orders'=>$orders]);
+        return view('admin.view_order',['order_details'=>$order_details,'customer'=>$customer,'shipping'=>$shipping,'orders'=>$orders,'order_status'=>$order_status]);
     }
     public function update_quantity(Request $req){
-
         $order  = Order::find($req->order_id);
         $order->order_status = $req ->order_status;
         $order->save();
@@ -149,12 +149,32 @@ class OrderController extends Controller
                     if($key == $key2){
                         $product_remain = $product_quantity - $qty;
                         $product ->product_quatity =$product_remain;
-                        $product->product_sold = $product_sold +$qty;
+                        $product->product_sold = $product_sold + $qty;
+                        $product->save();
+                    }
+                }
+            }
+        }
+        else if($order->order_status != 2 && $order->order_status != 3){
+            foreach($data['order_product_id']  as $key => $product_id){
+                foreach($data['quantity'] as $key2 => $qty){
+                    $product = Product::find($product_id);
+                    $product_quantity = $product -> product_quatity;
+                    $product_sold = $product ->product_sold;
+                    if($key == $key2){
+                        $product_remain = $product_quantity + $qty;
+                        $product ->product_quatity =$product_remain;
+                        $product->product_sold = $product_sold - $qty;
                         $product->save();
                     }
                 }
             }
         }
 
+    }
+    public function update_qty(Request $req){
+        $order_details = Order_details::where('product_id',$req->order_product_id )->where("order_code",$req->order_code)->first();
+        $order_details->product_sale_quatity = $req->order_qty;
+        $order_details->save();
     }
 }

@@ -119,7 +119,7 @@
                 $total_sum = 0;
             @endphp
             @foreach ($order_details as $item)
-            <tr>
+            <tr class="color_qty_{{$item->product_id}}">
                 @php
                     $phantram = (($item->product_price)/100)*12; 
                 @endphp
@@ -127,9 +127,17 @@
                 <td>{{$item->product_name}}</td>
                 <td>{{$item->products->product_quatity}}</td>
                 <td>
-                  <input type="number" class="order_qty_{{$item->product_id}}" min="1" value="{{$item->product_sale_quatity}}" name="product_sale_quantity" height="5">
+                  <input type="number" {{$order_status==2 ? 'disabled' : ''}}  class="order_qty_{{$item->product_id}}" min="1" value="{{$item->product_sale_quatity}}" name="product_sale_quantity" width="20px">
+                  
                   <input type="hidden" name="order_checkout_quantity" value="{{$item->product_id}}" class="order_product_id">
-                  <button class="btn btn-default update_quantity_order" data-product_id="{{$item->product_id}}" name="update_quantity" >Cập nhật</button>
+
+                  <input type="hidden" name="order_qty_storage" value="{{$item->products->product_quatity}}" class="order_qty_storage_{{$item->product_id}}">
+
+                  <input type="hidden" name="order_code" value="{{$item->order_code}}" class="order_code">
+                  @if ($order_status != 2)
+                    <button class="btn btn-default update_quantity_order" data-product_id="{{$item->product_id}}" name="update_quantity" >Cập nhật</button>
+
+                  @endif
                 </td>
                 <td>{{number_format($item->product_price).'đ'}}</td>
                 <td>{{number_format($item->product_feeship).'đ'}}</td>
