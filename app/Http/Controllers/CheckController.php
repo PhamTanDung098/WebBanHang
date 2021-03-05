@@ -98,9 +98,10 @@ class CheckController extends Controller
     }
     public function checkout(){
         $city = City::all();
+        $slider = Slider::all();
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();
         $brand = Brand::where('brand_status','=','1')->get();
-        return view('pages.checkout.checkout',['cate'=>$cate,'brand'=>$brand,'city'=>$city]);
+        return view('pages.checkout.checkout',['cate'=>$cate,'brand'=>$brand,'city'=>$city,'slider'=>$slider]);
     }
     public function save_checkout(Request $req){
         // dd($req ->all());
