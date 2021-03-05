@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Category_Product;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Models\Slider;
 use Session;
 use DB;
 
@@ -64,12 +65,13 @@ class CategoryProduct extends Controller
     // End function admin page
     public function showCategoryHome($id,Request $req){
         $meta_canonical = $req->url();
+        $slider = Slider::all();
         $product = DB::table('tbl_products')
         ->join('tbl_category_product','tbl_products.category_id','=','tbl_category_product.id')
         ->where('tbl_products.category_id',$id)->select('tbl_products.*')->get();
         $cate = Category_Product::where('category_status','1')->orderby('id','desc')->get();
         $brand = Brand::where('brand_status','=','1')->get();
-        return view('pages.category.show_category',['cate'=>$cate,'product'=>$product,'brand'=>$brand,'meta_canonical'=>$meta_canonical]);
+        return view('pages.category.show_category',['cate'=>$cate,'product'=>$product,'brand'=>$brand,'meta_canonical'=>$meta_canonical,'slider'=>$slider]);
     }
     
 }
