@@ -42,14 +42,15 @@ class CategoryProduct extends Controller
             Session::put('message','Đã tắt kích hoạt danh mục sản phẩm');
         }
         $cate ->save();
-        
         return \redirect()->route('categoryproduct.all');
     }
     public function update_categoryproduct($id, Request $req){
         $cate = Category_Product::find($id);
         $cate ->update($req->all());
         $cate->save();
+
         Session::put('message','Update Thanh cong');
+
         return \redirect()->route('categoryproduct.all');
     }
     public function edit_categoryproduct($id){
@@ -73,5 +74,5 @@ class CategoryProduct extends Controller
         $brand = Brand::where('brand_status','=','1')->get();
         return view('pages.category.show_category',['cate'=>$cate,'product'=>$product,'brand'=>$brand,'meta_canonical'=>$meta_canonical,'slider'=>$slider]);
     }
-    
+
 }
