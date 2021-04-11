@@ -39,7 +39,7 @@ class CategoryProduct extends Controller
         else
         {
             $cate->category_status =0;
-            Session::put('message','Đã tắt kích hoạt danh mục sản phẩm');
+            Session::put('message','Đã tắt kích hoạt danh mục sản phẩm!');
         }
         $cate ->save();
         return \redirect()->route('categoryproduct.all');
